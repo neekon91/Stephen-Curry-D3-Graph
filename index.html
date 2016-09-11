@@ -52,14 +52,10 @@ let sortButton = controls.append("button")
   .attr("order", 0);
 
 let x = d3.scale.ordinal()
-  .domain(data.map(function(entry){
-    return entry.key;
-  }))
+  .domain(data.map( entry => entry.key ))
   .rangeBands([0, width]);
 let y = d3.scale.linear()
-  .domain([0, d3.max(data, function(d){
-    return d.value;
-  })])
+  .domain([0, d3.max(data, d => d.value )])
   .range([height, 0]);
 let xAxis = d3.svg.axis()
   .scale(x)

@@ -177,6 +177,61 @@ function xGrids(params){
       .text("2015 - 2016");
   }
 }
+
+function graphS(params){
+  x.domain(data.map((entry)=> entry.key ));
+  y.domain([0, d3.max(data, (d)=> d.value )])
+
+  xGrids.call(this, params)
+
+    this.selectAll(".bar")
+    .data(params.data)
+    .enter()
+      .append("rect")
+      .classed("bar", true)
+      .on("mouseover", function(d,i){
+        d3.select(this).style("fill", "#FDB927")
+        .transition()
+        .duration(1000)
+          // .attr("transform", "translate(400,0)")
+          // .transition()
+          // .attr("transform", "translate(400,-500)")
+          // .transition()
+          // .attr("transform", "translate(0,0)");
+        .attrTween("transform", rotation);
+      })
+      .on("mouseout", function(d,i){
+        d3.select(this).style("fill", colors(i))
+      });
+//pop that
+  this.selectAll(".bar-text")
+    .data(params.data)
+    .enter()
+      .append("text")
+      .classed("bar-text", true);
+
+  this.selectAll(".bar")
+    .transition()
+    .delay(200)
+    .ease(movement)
+    .delay(200)
+    .attr("x", (d,i)=> x(d.key))
+    .attr("y", (d,i)=> y(d.value))
+    .attr("height", (d, i)=> height - y(d.value) )
+    .attr("width", (d)=> x.rangeBand() )
+    .style("fill", (d,i)=> colors(i) );
+
+  this.selectAll(".bar-text")
+      .transition()
+      .delay(200)
+      .ease(movement)
+      .delay(200)
+      .attr("x", (d, i)=> x(d.key) + (x.rangeBand()/2) )
+      .attr("dx", -3)
+      .attr("y", (d,i) => y(d.value) )
+      .attr("dy", -3)
+      .text((d,i)=> d.value )
+}
 </script>
 </body>
 </html>

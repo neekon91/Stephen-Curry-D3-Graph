@@ -119,6 +119,64 @@ sortButton.on("click", function(){
     init: false
   });
 });
+
+
+function xGrids(params){
+  if(params.init === false){
+    this.selectAll("g.x.axis")
+      .transition()
+      .delay(200)
+      .ease(movement)
+      .delay(200)
+      .call(params.axis.x)
+    this.selectAll(".x-axis-label", "end")
+      .style("text-anchor", "end")
+      .attr("dx", -8)
+      .attr("dy", 8)
+      .attr("transform", "translate(0,0) rotate(-45)");
+    this.selectAll("g.y.axis")
+      .transition()
+      .delay(200)
+      .ease(movement)
+      .delay(200)
+      .call(params.axis.y)
+  } else if(params.init === true){
+
+    this.append("g")
+      .call(params.gridlines)
+      .classed("gridline", true)
+      .attr("transform", "translate(0,0)")
+    this.append("g")
+      .classed("x axis", true)
+      .attr("transform", "translate(" + 0 +"," + height + ")")
+      .call(params.axis.x)
+        .selectAll("text")
+          .classed("x-axis-label", true)
+          .style("text-anchor", "end")
+          .attr("dx", -8)
+          .attr("dy", 8)
+          .attr("transform", "translate(0,0) rotate(-45)");
+    this.append("g")
+      .classed("y axis", true)
+      .attr("transform", "translate(0,0)")
+      .call(params.axis.y);
+    this.select(".y.axis")
+      .append("text")
+      .attr("x", 0)
+      .attr("y", 0)
+      .style("text-anchor", "middle")
+      .attr("transform", "translate(-50," + height/2 + ") rotate(-90)")
+      .text("")
+
+    this.select(".x.axis")
+      .append("text")
+      .attr("x", 0)
+      .attr("y", 0)
+      .style("text-anchor", "middle")
+      .attr("transform", "translate(" + width/2 + ",80)")
+      .text("2015 - 2016");
+  }
+}
 </script>
 </body>
 </html>

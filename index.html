@@ -121,14 +121,14 @@ sortButton.on("click", function(){
 });
 
 
-function xGrids(params){
-  if(params.init === false){
+function xGrids(arg){
+  if(arg.init === false){
     this.selectAll("g.x.axis")
       .transition()
       .delay(200)
       .ease(movement)
       .delay(200)
-      .call(params.axis.x)
+      .call(arg.axis.x)
     this.selectAll(".x-axis-label", "end")
       .style("text-anchor", "end")
       .attr("dx", -8)
@@ -139,17 +139,17 @@ function xGrids(params){
       .delay(200)
       .ease(movement)
       .delay(200)
-      .call(params.axis.y)
-  } else if(params.init === true){
+      .call(arg.axis.y)
+  } else if(arg.init === true){
 
     this.append("g")
-      .call(params.gridlines)
+      .call(arg.gridlines)
       .classed("gridline", true)
       .attr("transform", "translate(0,0)")
     this.append("g")
       .classed("x axis", true)
       .attr("transform", "translate(" + 0 +"," + height + ")")
-      .call(params.axis.x)
+      .call(arg.axis.x)
         .selectAll("text")
           .classed("x-axis-label", true)
           .style("text-anchor", "end")
@@ -159,7 +159,7 @@ function xGrids(params){
     this.append("g")
       .classed("y axis", true)
       .attr("transform", "translate(0,0)")
-      .call(params.axis.y);
+      .call(arg.axis.y);
     this.select(".y.axis")
       .append("text")
       .attr("x", 0)
@@ -178,14 +178,14 @@ function xGrids(params){
   }
 }
 
-function graphS(params){
+function graphS(arg){
   x.domain(data.map((entry)=> entry.key ));
   y.domain([0, d3.max(data, (d)=> d.value )])
 
-  xGrids.call(this, params)
+  xGrids.call(this, arg)
 
     this.selectAll(".bar")
-    .data(params.data)
+    .data(arg.data)
     .enter()
       .append("rect")
       .classed("bar", true)
@@ -205,7 +205,7 @@ function graphS(params){
       });
 //pop that
   this.selectAll(".bar-text")
-    .data(params.data)
+    .data(arg.data)
     .enter()
       .append("text")
       .classed("bar-text", true);

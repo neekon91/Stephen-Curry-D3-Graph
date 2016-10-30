@@ -1,2 +1,2 @@
 # Stephen-Curry-D3-Graph
-Class presentation on Stephen Curry statistics displayed on a graph using D3
+Interactive graph displaying Stephen Curry statistics built with D3 library

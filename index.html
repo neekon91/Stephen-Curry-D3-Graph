@@ -175,8 +175,8 @@ function xGrids(arg){
 }
 
 function graphS(arg){
-  x.domain(data.map((entry)=> entry.key ));
-  y.domain([0, d3.max(data, (d)=> d.value )])
+  x.domain(data.map(entry=> entry.key ));
+  y.domain([0, d3.max(data, d=> d.value )])
 
   xGrids.call(this, arg)
 
@@ -214,7 +214,7 @@ function graphS(arg){
     .attr("x", (d,i)=> x(d.key))
     .attr("y", (d,i)=> y(d.value))
     .attr("height", (d, i)=> height - y(d.value) )
-    .attr("width", (d)=> x.rangeBand() )
+    .attr("width", d=> x.rangeBand() )
     .style("fill", (d,i)=> colors(i) );
 
   this.selectAll(".bar-text")

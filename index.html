@@ -79,12 +79,12 @@ let canvas = svg.append("g")
 
 // const colors = d3.scale.linear()
 //   .domain([0, data.length])
-//   .range(["#ffb3b3", "#4d0000"]);
+//   .range(["#00334d", "#ff6767"]);
 const colors = d3.scale.category20c();
 
-const rotation = () => D => "rotate(" + d3.interpolate(0, -360)(D) + ")";
+const rotation = () => d => `rotate(${d3.interpolate(0, 360)(d)})`;
 
-const movement = "elastic";
+const movement = "back";
 //linear, quad, cubic, sin, exp, circle, elastic, back, bounce
 
 //pop that
@@ -118,7 +118,7 @@ sortButton.on("click", function(){
 
 
 function xGrids(arg){
-  if(arg.init === false){
+  if(!arg.init){
     this.selectAll("g.x.axis")
       .transition()
       .delay(200)
@@ -136,8 +136,8 @@ function xGrids(arg){
       .ease(movement)
       .delay(200)
       .call(arg.axis.y)
-  } else if(arg.init === true){
-
+  }
+  else if(arg.init){
     this.append("g")
       .call(arg.gridlines)
       .classed("gridline", true)
@@ -199,7 +199,7 @@ function graphS(arg){
       .on("mouseout", function(d,i){
         d3.select(this).style("fill", colors(i))
       });
-//pop that
+
   this.selectAll(".bar-text")
     .data(arg.data)
     .enter()
@@ -229,19 +229,19 @@ function graphS(arg){
       .text((d,i)=> d.value )
 }
 
+const callme = () =>
+  graphS.call(canvas,
+    {
+      data: data,
+      axis:{
+        x: xAxis,
+        y: yAxis
+      },
+      init: true,
+      gridlines: yGridlines
+    }
+  );
 
-const callme = () =>{
-
-  graphS.call(canvas, {
-    data: data,
-    axis:{
-      x: xAxis,
-      y: yAxis
-    },
-    init: true,
-    gridlines: yGridlines
-  });
-};
 
 callme();
 </script>
